@@ -1,10 +1,32 @@
 // Задание 1
+
 function getArrayParams(arr) {
-  let min, max, sum, avg;
+  let min = arr[0];
+  let max = arr[0];
+  let sum = 0;
+   
+  if (arr.length === 0)
+    return 0;
+  
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] < -100 || arr[i] > 100)
+      return console.log('Число не в заданном диапазоне');
 
-  // Ваш код
+    if (min > arr[i])
+      min = arr[i];
 
-  return { min: min, max: max, avg: avg };
+    if (max < arr[i])
+      max = arr[i];
+      sum += arr[i];
+    }
+    
+    let avg = +(sum / arr.length).toFixed(2);
+    
+    return {
+      min: min,
+      max: max,
+      avg: avg
+    }
 }
 
 // Задание 2
