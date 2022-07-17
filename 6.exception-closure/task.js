@@ -18,7 +18,7 @@ function validateCount(x) {
 }
 
 
-console.log(validateCount('nhg123'));
+
 //////////////
 
 class Triangle {
@@ -44,9 +44,19 @@ class Triangle {
 }
 
 function getTriangle(a, b, c) {
-  let triangle = new Triangle(a, b, c);
-   return triangle;
- }
+  try {
+  const triangle = new Triangle(a, b, c);
+    return triangle;
+  } catch(err) {
+    return {
+      err,
+      getArea: () => 
+        'Ошибка! Треугольник не существует',      
+      getPerimeter: () => 
+        'Ошибка! Треугольник не существует'
+      }
+    }
+  } 
 
 console.log(getTriangle(12, 20, 30));
 const one = new Triangle(4, 5, 6);
