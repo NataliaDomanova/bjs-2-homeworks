@@ -1,27 +1,25 @@
 function cachingDecoratorNew(func) {
   let cache = [];
-
+  
   function wrapper(...args) {
-    const hash = args.join('');
-    let result = func(...args); 
-    let objectInCache = cache.find((item) => item.hash === hash);
-
-    if (objectInCache !== undefined) { // если элемент найден
-      console.log("Из кэша: " + objectInCache.result); // индекс нам известен, по индексу в массиве лежит объект, как получить нужное значение?
-      return "Из кэша: " + objectInCache.result;
-    }
-    cache.push({ hash, result }); 
-     //console.log(cache)
-    if (cache.length > 5) {
-      cache.shift();
-    }
-    console.log("Вычисляем: " + result);
-    return "Вычисляем: " + result;
+      const hash = args.join(',');
+      let objectInCache = cache.find((item) => item.hash == hash);
+    
+      if (objectInCache) { 
+          console.log("Из кэша: " + objectInCache.result); 
+          return "Из кэша: " + objectInCache.result;
+      }
+  
+      let result = func(...args); 
+      cache.push({hash, result}) ; // 
+      if (cache.length > 5) { 
+        cache.shift(); 
+      }
+      console.log("Вычисляем: " + result);
+      return "Вычисляем: " + result;  
   }
-   //console.log(cache)
   return wrapper;
- 
-}
+  }
 
 
 const addThree = (a, b, c) => a + b + c;
