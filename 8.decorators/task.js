@@ -105,6 +105,40 @@ console.timeEnd('time');
 */
 
 //Задача 3
-function debounceDecorator2(func) {
-  // Ваш код
+const debounceDecorator2 = (func) => {
+  let timerId = null;
+  let firstRun = true;
+
+  function wrapper(...args) {
+    wrapper.history.push(args);
+    wrapper.count = wrapper.history.length;
+    if (firstRun) {
+      func.apply(this, args);      
+      firstRun = false;
+    } else {
+      clearTimeout(timerId);
+      return timerId = setTimeout(() => {
+        func.apply(this, args);
+      });
+      
+    }
+  }
+  wrapper.history = [];   
+  return wrapper;
 }
+
+const sendSignal1 = () => console.log('Сигнал отправлен')
+const sendSignalSpied = debounceDecorator2(sendSignal1);
+
+sendSignalSpied();
+sendSignalSpied();
+sendSignalSpied();
+sendSignalSpied();
+sendSignalSpied();
+sendSignalSpied();
+sendSignalSpied();
+sendSignalSpied();
+sendSignalSpied();
+sendSignalSpied();
+
+console.log(sendSignalSpied.count);
